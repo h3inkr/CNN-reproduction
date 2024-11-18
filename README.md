@@ -5,5 +5,7 @@ Code for the paper [Convolutional Neural Networks for Sentence Classification](h
   
 ## Reference
 Our implementation references the codes in the following repositories:  
+● https://github.com/yoonkim/CNN_sentence.git  
+● https://github.com/dennybritz/cnn-text-classification-tf.git
 ● SST1, SST2: https://github.com/HaebinShin/stanford-sentiment-dataset.git  
 ● preprocess.py: https://github.com/jihunkeom/CNN_reproduction.git
