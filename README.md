@@ -1,6 +1,5 @@
 # CNN-reproduction
 ![image](https://github.com/user-attachments/assets/43c77057-0dd6-4d05-8f12-6ea61e73d984)
-
 Code for the paper [Convolutional Neural Networks for Sentence Classification](https://aclanthology.org/D14-1181) (EMNLP 2014).
 
   
