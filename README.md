@@ -1,2 +1,2 @@
 ## CNN-reproduction
-Code for the paper [Convolutional Neural Networks for Sentence Classification](http://arxiv.org/abs/1408.5882) (EMNLP 2014).
+Code for the paper [Convolutional Neural Networks for Sentence Classification](https://aclanthology.org/D14-1181)(EMNLP 2014).
