@@ -11,7 +11,7 @@ from model import CNNText
 import sys
 
 # GoogleNews pre-trained vector loading
-def load_pretrained_vectors(word_idx_map, embed_dim=300, binary=True, path="/hdd/user4/cnn/data/GoogleNews-vectors-negative300.bin"):
+def load_pretrained_vectors(word_idx_map, embed_dim=300, binary=True, path="./data/GoogleNews-vectors-negative300.bin"):
     word_vectors = gensim.models.KeyedVectors.load_word2vec_format(path, binary=binary)
     vocab_size = len(word_idx_map) + 1
     pretrained_embed = np.zeros((vocab_size, embed_dim))
@@ -105,35 +105,35 @@ def evaluate(model, data_loader, criterion, device):
 def cross_validate(model_type, dataset_name, folds=10):
     # 데이터 로드
     if dataset_name == "MR":
-        with open('/hdd/user4/cnn/data/preprocessed/mr.bin', 'rb') as f:
+        with open('./data/preprocessed/mr.bin', 'rb') as f:
             data, W, W2, word_idx_map, vocab, max_l = pickle.load(f)
     elif dataset_name == "CR":
-        with open('/hdd/user4/cnn/data/preprocessed/cr.bin', 'rb') as f:
+        with open('./data/preprocessed/cr.bin', 'rb') as f:
             data, W, W2, word_idx_map, vocab, max_l = pickle.load(f)
     elif dataset_name == "Subj":
-        with open('/hdd/user4/cnn/data/preprocessed/subj.bin', 'rb') as f:
+        with open('./data/preprocessed/subj.bin', 'rb') as f:
             data, W, W2, word_idx_map, vocab, max_l = pickle.load(f)
     elif dataset_name == "MPQA":
-        with open('/hdd/user4/cnn/data/preprocessed/mpqa.bin', 'rb') as f:
+        with open('./data/preprocessed/mpqa.bin', 'rb') as f:
             data, W, W2, word_idx_map, vocab, max_l = pickle.load(f)
     elif dataset_name == "TREC":
-        with open('/hdd/user4/cnn/data/preprocessed/trec_train.bin', 'rb') as f:
+        with open('./data/preprocessed/trec_train.bin', 'rb') as f:
             train_data, W, W2, word_idx_map, vocab, max_l = pickle.load(f)
-        with open('/hdd/user4/cnn/data/preprocessed/trec_test.bin', 'rb') as f:
+        with open('./data/preprocessed/trec_test.bin', 'rb') as f:
             test_data, _, _, _, _, _ = pickle.load(f)
     elif dataset_name == "SST1":
-        with open('/hdd/user4/cnn/data/preprocessed/sst1_train.bin', 'rb') as f:
+        with open('./data/preprocessed/sst1_train.bin', 'rb') as f:
             train_data, W, W2, word_idx_map, vocab, max_l = pickle.load(f)
-        with open('/hdd/user4/cnn/data/preprocessed/sst1_test.bin', 'rb') as f:
+        with open('./data/preprocessed/sst1_test.bin', 'rb') as f:
             test_data, _, _, _, _, _ = pickle.load(f)
-        with open('/hdd/user4/cnn/data/preprocessed/sst1_dev.bin', 'rb') as f:
+        with open('./data/preprocessed/sst1_dev.bin', 'rb') as f:
             dev_data, _, _, _, _, _ = pickle.load(f)
     elif dataset_name == "SST2":
-        with open('/hdd/user4/cnn/data/preprocessed/sst2_train.bin', 'rb') as f:
+        with open('./data/preprocessed/sst2_train.bin', 'rb') as f:
             train_data, W, W2, word_idx_map, vocab, max_l = pickle.load(f)
-        with open('/hdd/user4/cnn/data/preprocessed/sst2_test.bin', 'rb') as f:
+        with open('./data/preprocessed/sst2_test.bin', 'rb') as f:
             test_data, _, _, _, _, _ = pickle.load(f)
-        with open('/hdd/user4/cnn/data/preprocessed/sst2_dev.bin', 'rb') as f:
+        with open('./data/preprocessed/sst2_dev.bin', 'rb') as f:
             dev_data, _, _, _, _, _ = pickle.load(f)
     else:
         print("지원되지 않는 데이터셋입니다.")
@@ -253,8 +253,18 @@ def cross_validate(model_type, dataset_name, folds=10):
         avg_accuracy = np.mean(fold_accuracies)
         print(f"10-Fold 교차 검증 평균 정확도: {avg_accuracy:.4f}")
 
-# 메인 함수
+def print_usage():
+    print("Usage: python script.py <model_type> <dataset_name>")
+    print("  model_type: 'rand', 'static', 'non-static', 'multichannel'")
+    print("  dataset_name: 'MR', 'CR', 'Subj', 'MPQA'")
+
 if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Error: Invalid number of arguments.\n")
+        print_usage()
+        sys.exit(1)
+
     model_type = sys.argv[1]  # 'rand', 'static', 'non-static', 'multichannel'
     dataset_name = sys.argv[2]  # 'MR', 'CR', 'Subj', 'MPQA'
+
     cross_validate(model_type, dataset_name)
